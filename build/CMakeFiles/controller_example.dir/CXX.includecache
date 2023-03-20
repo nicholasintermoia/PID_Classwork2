@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dev/Classwork2/control_loop/src/control_loop.cpp
+control_loop.h
+/home/dev/Classwork2/control_loop/src/control_loop.h
+
+/home/dev/Classwork2/control_loop/src/control_loop.h
+iostream
+-
+boost/thread.hpp
+/home/dev/Classwork2/control_loop/src/boost/thread.hpp
+fstream
+-
+unistd.h
+-
+
+/home/dev/Classwork2/control_loop/src/main.cpp
+control_loop.h
+/home/dev/Classwork2/control_loop/src/control_loop.h
+
