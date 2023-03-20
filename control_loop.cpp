@@ -17,8 +17,11 @@ CONTROLLER::CONTROLLER( const float & kp,const float & initial_value,const float
 
 //Sense: get input to change the state of our System
 void CONTROLLER::set_xdes(float xdes) {
-    //cout<<"Inserisci valore di rif: ";
     _xdes = xdes;
+}
+
+bool CONTROLLER::get_q(){
+    return _q;
 }
 
 
@@ -36,7 +39,7 @@ void CONTROLLER::loop() {
     float D=0.0;
     float T=0.01;
     double time=0.0;
-    bool q=true;
+    _q=true;
     ofstream data;
     ofstream time_out;
     ofstream command;
@@ -45,10 +48,9 @@ void CONTROLLER::loop() {
     time_out.open("time.txt");
     command.open("control.txt");
     riferimento.open("ref.txt");
-    //float I_curr=0.0;
 
     
-    while(q){
+    while(_q){
         command<< _cmd << endl;
         cout<<"controllo: "<<_cmd<<"\n";
         cout<<"stato: "<<x_curr<<"\n";
@@ -57,19 +59,22 @@ void CONTROLLER::loop() {
         riferimento<< _xdes << endl;
         e_curr=_xdes-x_curr;
         if(fabs(e_curr)<=0.0001){
-            q=false;
+            _q=false;
         }
-        //Azione derivativa
+        //Derivative action
         D=(e_curr-e_old)/T;
         e_old=e_curr;
-        //azione integ
+        //Integral action
         I=I+e_curr*T;
         _cmd=_Kp*e_curr+_Ki*I+_Kd*D;
-        x_new=x_curr*0.99+_cmd*0.00995;
+        x_new=x_curr*0.99+_cmd*0.00995; //transfer function of a first order system
         x_curr=x_new;
         cout<<"errore: "<<e_curr<<"\n";
         time+=T;
         cout<<"tempo: "<<time<<"\n";
+        if(!_q){
+            cout<<"Loop ended steady state reached, insert input from keyboard to exit."<<endl;
+        }
         usleep(T*1e6);
 
     }
@@ -77,22 +82,5 @@ void CONTROLLER::loop() {
     time_out.close();
     command.close();
     riferimento.close();
-
-}
-/*
-
-void CONTROLLER::run() {
-
-  std::vector< boost::thread> th;
-  
-    th.push_back(boost::thread(&CONTROLLER::system_start, this));
-    //th.push_back(boost::thread(&CONTROLLER::set_xdes, this));
-    th.push_back(boost::thread(&CONTROLLER::loop, this));
-
-    th[0].join();
-    th[1].join();
     
-
 }
-
-*/

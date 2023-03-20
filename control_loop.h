@@ -12,7 +12,7 @@ class CONTROLLER {
         void loop();                //Main loop function        
         void system_start();       //start the system
         void set_xdes(float);   //member to set the desired value
-        void run();
+        bool get_q(); 
 
     private:
 
@@ -22,4 +22,5 @@ class CONTROLLER {
         float _initial_value;
         float _cmd;
         float _xdes;
+        bool _q; //boolean value to determinate when the loop is terminated
 };
