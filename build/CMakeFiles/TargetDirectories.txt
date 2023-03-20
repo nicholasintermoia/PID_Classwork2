@@ -1,3 +1,0 @@
-/home/dev/Classwork2/control_loop/build/CMakeFiles/rebuild_cache.dir
-/home/dev/Classwork2/control_loop/build/CMakeFiles/edit_cache.dir
-/home/dev/Classwork2/control_loop/build/CMakeFiles/controller_example.dir
